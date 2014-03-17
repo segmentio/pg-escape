@@ -25,7 +25,6 @@ function format(fmt) {
   var args = arguments;
   return fmt.replace(/%([%sIL])/g, function(_, type){
     var arg = args[i++];
-
     switch (type) {
       case 's': return exports.string(arg);
       case 'I': return exports.ident(arg);
