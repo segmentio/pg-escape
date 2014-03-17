@@ -1,12 +1,12 @@
 
-# name
+# pg-escape
 
-  description
+  Sprintf-style postgres query formatting and escape helper functions.
 
 ## Installation
 
 ```
-$ npm install name
+$ npm install pg-escape
 ```
 
 ## Example
