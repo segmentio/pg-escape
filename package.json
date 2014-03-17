@@ -1,0 +1,13 @@
+{
+  "name": "pg-escape",
+  "version": "0.0.1",
+  "repository": "segmentio/pg-escape",
+  "description": "escape postgres queries which do not support stored procedures",
+  "keywords": ["pg", "postgres", "escape", "query"],
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "license": "MIT"
+}
