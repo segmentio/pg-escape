@@ -24,12 +24,15 @@ function format(fmt) {
   var i = 1;
   var args = arguments;
   return fmt.replace(/%([%sIL])/g, function(_, type){
+    if (type === '%') {
+      return '%';
+    }
+
     var arg = args[i++];
     switch (type) {
       case 's': return exports.string(arg);
       case 'I': return exports.ident(arg);
       case 'L': return exports.literal(arg);
-      case '%': return '%';
     }
   });
 }
