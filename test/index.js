@@ -19,6 +19,11 @@ describe('escape(fmt, ...)', function(){
       escape('some %%', 'thing')
         .should.equal('some %');
     })
+
+    it('should not eat args', function(){
+      escape('just %% a %s', 'test')
+        .should.equal('just % a test');
+    })
   })
 
   describe('%I', function(){
@@ -98,3 +103,4 @@ describe('escape.literal(val)', function(){
     escape.literal('\\whoop\\').should.equal("E'\\\\whoop\\\\'");
   })
 })
+
