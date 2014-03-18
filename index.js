@@ -24,9 +24,7 @@ function format(fmt) {
   var i = 1;
   var args = arguments;
   return fmt.replace(/%([%sIL])/g, function(_, type){
-    if (type === '%') {
-      return '%';
-    }
+    if ('%' == type) return '%';
 
     var arg = args[i++];
     switch (type) {
