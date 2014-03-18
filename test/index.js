@@ -1,6 +1,7 @@
 
 var assert = require('assert');
 var escape = require('..');
+var should = require('should');
 
 describe('escape(fmt, ...)', function(){
   describe('%s', function(){
@@ -33,6 +34,13 @@ describe('escape(fmt, ...)', function(){
         .should.equal("'Tobi''s'");
     })
   })
+
+  describe('%Q', function(){
+    it('should format as a dollar quoted string', function(){
+      escape('%Q', "Tobi's")
+        .should.match(/\$[a-z]{1}\$Tobi's\$[a-z]\$/);
+    })
+  })
 })
 
 describe('escape.string(val)', function(){
@@ -41,6 +49,15 @@ describe('escape.string(val)', function(){
     escape.string(0).should.equal('0');
     escape.string(15).should.equal('15');
     escape.string('something').should.equal('something');
+  })
+})
+
+describe('escape.dollarQuotedString(val)', function() {
+  it('should coerce to a dollar quoted string', function(){
+    escape.dollarQuotedString().should.equal('');
+    escape.dollarQuotedString(0).should.match(/\$[a-z]{1}\$0\$[a-z]\$/);
+    escape.dollarQuotedString(15).should.match(/\$[a-z]{1}\$15\$[a-z]\$/);
+    escape.dollarQuotedString('something').should.match(/\$[a-z]{1}\$something\$[a-z]\$/);
   })
 })
 

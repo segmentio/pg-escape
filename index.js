@@ -23,12 +23,13 @@ exports = module.exports = format;
 function format(fmt) {
   var i = 1;
   var args = arguments;
-  return fmt.replace(/%([%sIL])/g, function(_, type){
+  return fmt.replace(/%([%sILQ])/g, function(_, type){
     var arg = args[i++];
     switch (type) {
       case 's': return exports.string(arg);
       case 'I': return exports.ident(arg);
       case 'L': return exports.literal(arg);
+      case 'Q': return exports.dollarQuotedString(arg);
       case '%': return '%';
     }
   });
@@ -45,6 +46,31 @@ function format(fmt) {
 exports.string = function(val){
   return null == val ? '' : String(val);
 };
+
+/*
+  pg Dollar-Quoted String Constants - http://www.postgresql.org/docs/8.3/interactive/sql-syntax-lexical.html#SQL-SYNTAX-DOLLAR-QUOTING
+*/
+var randomTags = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'g', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't'];
+
+function random(start, end) {
+  var range = end - start;
+  return Math.floor((Math.random() * range) + start);
+}
+
+/**
+ * Format as dollar quoted string.
+ *
+ * @param {Mixed} val
+ * @return {String}
+ * @api public
+ */
+exports.dollarQuotedString = function(val) {
+  if (val === undefined || val === null || val === '') return '';
+
+  var randomTag = '$'+ randomTags[ random(0, randomTags.length) ] +'$';
+
+  return randomTag + val + randomTag;
+}
 
 /**
  * Format as identifier.
