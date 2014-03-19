@@ -47,11 +47,20 @@ exports.string = function(val){
   return null == val ? '' : String(val);
 };
 
-/*
-  pg Dollar-Quoted String Constants - http://www.postgresql.org/docs/8.3/interactive/sql-syntax-lexical.html#SQL-SYNTAX-DOLLAR-QUOTING
-*/
-var randomTags = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'g', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't'];
+/**
+ *  Dollar-Quoted String Constants
+ */
+var randomTags = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'g', 'j', 'k',
+  'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't'];
 
+/**
+ * produces a random number from a given range
+ *
+ * @param {Number} start start of random numbers range
+ * @param {Number} end end of random numbers range (inclusive)
+ * @return {Number}
+ * @api public
+ */
 function random(start, end) {
   var range = end - start;
   return Math.floor((Math.random() * range) + start);
@@ -59,6 +68,7 @@ function random(start, end) {
 
 /**
  * Format as dollar quoted string.
+ * see: http://www.postgresql.org/docs/8.3/interactive/sql-syntax-lexical.html#SQL-SYNTAX-DOLLAR-QUOTING
  *
  * @param {Mixed} val
  * @return {String}
@@ -66,9 +76,7 @@ function random(start, end) {
  */
 exports.dollarQuotedString = function(val) {
   if (val === undefined || val === null || val === '') return '';
-
   var randomTag = '$'+ randomTags[ random(0, randomTags.length) ] +'$';
-
   return randomTag + val + randomTag;
 }
 
