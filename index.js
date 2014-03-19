@@ -59,7 +59,7 @@ var randomTags = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'g', 'j', 'k',
  * @param {Number} start start of random numbers range
  * @param {Number} end end of random numbers range (inclusive)
  * @return {Number}
- * @api public
+ * @api private
  */
 function random(start, end) {
   var range = end - start;
