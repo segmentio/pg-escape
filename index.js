@@ -50,6 +50,7 @@ exports.string = function(val){
 /**
  *  Dollar-Quoted String Constants
  */
+
 var randomTags = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'g', 'j', 'k',
   'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't'];
 
@@ -61,6 +62,7 @@ var randomTags = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'g', 'j', 'k',
  * @return {Number}
  * @api private
  */
+
 function random(start, end) {
   var range = end - start;
   return Math.floor((Math.random() * range) + start);
@@ -74,6 +76,7 @@ function random(start, end) {
  * @return {String}
  * @api public
  */
+
 exports.dollarQuotedString = function(val) {
   if (val === undefined || val === null || val === '') return '';
   var randomTag = '$'+ randomTags[ random(0, randomTags.length) ] +'$';
