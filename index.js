@@ -4,6 +4,17 @@
  */
 
 var assert = require('assert');
+var fs = require('fs');
+
+/**
+ * Reserved word map.
+ */
+
+var txt = fs.readFileSync(__dirname + '/reserved.txt', 'utf8');
+var reserved = txt.split('\n').reduce(function(map, word){
+  map[word.toLowerCase()] = true;
+  return map;
+}, {});
 
 /**
  * Expose `format()`.
@@ -123,6 +134,7 @@ exports.literal = function(val){
  */
 
 function validIdent(id) {
+  if (reserved[id]) return false;
   return /^[a-z_][a-z0-9_$]*$/i.test(id);
 }
 

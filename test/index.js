@@ -75,6 +75,12 @@ describe('escape.ident(val)', function(){
     escape.ident('test."some".stuff').should.equal('"test.""some"".stuff"');
   })
 
+  it('should quote reserved words', function(){
+    escape.ident('desc').should.equal('"desc"');
+    escape.ident('join').should.equal('"join"');
+    escape.ident('cross').should.equal('"cross"');
+  })
+
   it('should throw when null', function(done){
     try {
       escape.ident();
