@@ -9,7 +9,9 @@
     "escape",
     "query"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "xregexp": "^2.0.0"
+  },
   "devDependencies": {
     "mocha": "*",
     "should": "*"

@@ -5,6 +5,7 @@
 
 var assert = require('assert');
 var fs = require('fs');
+var XRegExp = require('xregexp').XRegExp;
 
 /**
  * Reserved word map.
@@ -15,6 +16,24 @@ var reserved = txt.split('\n').reduce(function(map, word){
   map[word.toLowerCase()] = true;
   return map;
 }, {});
+
+/**
+ * setup the regex stuff/lib
+ */
+
+var RegExpMain = (function(){
+  var reLib = {};
+  reLib.posInt   = /[1-9][0-9]*/;
+  reLib.star     = /\*/;
+  reLib.nth      = XRegExp.build('{{star}}{{posInt}}\$', reLib);
+  reLib.flags    = XRegExp('(?<flags>[-])');
+  reLib.position = XRegExp.build('(?<position>{{posInt}})\$', reLib);
+  //reLib.width    = XRegExp.build('(?<width>(?<widthInt>{{posInt}})|(?<widthStar>{{star}})|(?<widthNth>{{nth}}))', reLib);
+  reLib.width    = XRegExp.build('(?<widthInt>{{posInt}})|(?<widthStar>{{star}})|(?<widthNth>{{nth}})', reLib);
+  reLib.type     = XRegExp('(?<type>[sIL])');
+
+  return XRegExp.build('%((?<percent>%)|{{position}}?{{flags}}?{{width}}?{{type}})', reLib, 'g');
+})();
 
 /**
  * Expose `format()`.
@@ -34,8 +53,10 @@ exports = module.exports = format;
 function format(fmt) {
   var i = 1;
   var args = arguments;
-  return fmt.replace(/%([%sIL])/g, function(_, type){
-    if ('%' == type) return '%';
+
+  return XRegExp.replace(fmt, RegExpMain, function(matches, type){
+    console.log(matches);
+    if (matches.percent !== undefined) return '%';
 
     var arg = args[i++];
     switch (type) {
