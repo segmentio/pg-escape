@@ -47,6 +47,9 @@ INSERT INTO books VALUES('O''Reilly')
 - `%L` quotes the argument value as an SQL literal. A null value is displayed as the string NULL, without quotes.
 - `%%` In addition to the format specifiers described above, the special sequence %% may be used to output a literal % character.
 
+Also all other "advanced" features (postition, flag, width) of the `format` function are implemented,
+see [the Postgresql documentation](http://www.postgresql.org/docs/current/static/functions-string.html#FUNCTIONS-STRING-FORMAT).
+
 # License
 
   MIT
