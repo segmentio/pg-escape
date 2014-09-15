@@ -55,7 +55,11 @@ function format(fmt) {
  */
 
 exports.string = function(val){
-  return null == val ? '' : String(val);
+  if (null == val) return '';
+  if (false === val) return 'f';
+  if (true === val) return 't';
+  if (val instanceof Date) return val.toISOString();
+  return val.toString();
 };
 
 /**
@@ -81,6 +85,13 @@ exports.ident = function(val){
 
 exports.literal = function(val){
   if (null == val) return 'NULL';
+  if (false === val) return "'f'";
+  if (true === val) return "'t'";
+  if (val instanceof Date) {
+    val = val.toISOString();
+  } else {
+    val = val.toString();
+  }
   var backslash = ~val.indexOf('\\');
   var prefix = backslash ? 'E' : '';
   val = val.replace(/'/g, "''");
@@ -110,6 +121,13 @@ function validIdent(id) {
  */
 
 function quoteIdent(id) {
+  if (false === id) return '"f"';
+  if (true === id) return '"t"';
+  if (id instanceof Date) {
+    id = id.toISOString();
+  } else {
+    id = id.toString();
+  }
   id = id.replace(/"/g, '""');
   return '"' + id + '"';
 }
