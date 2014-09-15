@@ -55,7 +55,7 @@ function format(fmt) {
  */
 
 exports.string = function(val){
-  if (null == val) return 'NULL';
+  if (null == val) return '';
   if (false === val) return 'f';
   if (true === val) return 't';
   if (val instanceof Date) return val.toISOString();

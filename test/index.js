@@ -42,9 +42,14 @@ describe('escape(fmt, ...)', function(){
 
 describe('escape.string(val)', function(){
   it('should coerce to a string', function(){
+    var date = new Date(Date.UTC(2012, 11, 14, 13, 6, 43, 152));
     escape.string().should.equal('');
     escape.string(0).should.equal('0');
     escape.string(15).should.equal('15');
+    escape.string(45.13).should.equal('45.13');
+    escape.string(true).should.equal('t');
+    escape.string(false).should.equal('f');
+    escape.string(date).should.equal('2012-12-14T13:06:43.152Z');
     escape.string('something').should.equal('something');
   })
 })
@@ -62,6 +67,21 @@ describe('escape.ident(val)', function(){
     escape.ident('desc').should.equal('"desc"');
     escape.ident('join').should.equal('"join"');
     escape.ident('cross').should.equal('"cross"');
+  })
+
+  it('should quote booleans', function(){
+    escape.ident(true).should.equal('"t"');
+    escape.ident(false).should.equal('"f"');
+  })
+
+  it('should quote numbers', function(){
+    escape.ident(45).should.equal('"45"');
+    escape.ident(45.13).should.equal('"45.13"');
+  })
+
+  it('should convert Date to ISO and quote it', function(){
+    var date = new Date(Date.UTC(2012, 11, 14, 13, 6, 43, 152));
+    escape.ident(date).should.equal('"2012-12-14T13:06:43.152Z"');
   })
 
   it('should throw when null', function(done){
@@ -90,6 +110,21 @@ describe('escape.literal(val)', function(){
 
   it('should escape backslashes', function(){
     escape.literal('\\whoop\\').should.equal("E'\\\\whoop\\\\'");
+  })
+
+  it('should quote booleans', function(){
+    escape.literal(true).should.equal("'t'");
+    escape.literal(false).should.equal("'f'");
+  })
+
+  it('should quote numbers', function(){
+    escape.literal(45).should.equal("'45'");
+    escape.literal(45.13).should.equal("'45.13'");
+  })
+
+  it('should convert Date to ISO and quote it', function(){
+    var date = new Date(Date.UTC(2012, 11, 14, 13, 6, 43, 152));
+    escape.literal(date).should.equal("'2012-12-14T13:06:43.152Z'");
   })
 })
 
