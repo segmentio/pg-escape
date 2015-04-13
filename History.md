@@ -1,4 +1,10 @@
 
+v0.1.0 / 2015-04-13
+===================
+
+  * add support for escaping array literals as tuples
+  * add reserved.txt
+
 0.0.3 / 2014-06-18
 ==================
 
