@@ -9,6 +9,9 @@
     "escape",
     "query"
   ],
+  "scripts": {
+    "test": "mocha --require should --reporter spec"
+  },
   "dependencies": {},
   "devDependencies": {
     "mocha": "*",
