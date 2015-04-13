@@ -80,6 +80,10 @@ describe('escape.literal(val)', function(){
     escape.literal(undefined).should.equal('NULL');
   })
 
+  it('should return a tuple for arrays', function(){
+    escape.literal(["foo", "bar", "baz' DROP TABLE foo;"]).should.equal("('foo', 'bar', 'baz'' DROP TABLE foo;')");
+  })
+
   it('should quote', function(){
     escape.literal('hello world').should.equal("'hello world'");
   })

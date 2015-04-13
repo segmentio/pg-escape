@@ -81,6 +81,10 @@ exports.ident = function(val){
 
 exports.literal = function(val){
   if (null == val) return 'NULL';
+  if (Array.isArray(val)) {
+    var vals = val.map(exports.literal)
+    return "(" + vals.join(", ") + ")"
+  }
   var backslash = ~val.indexOf('\\');
   var prefix = backslash ? 'E' : '';
   val = val.replace(/'/g, "''");
