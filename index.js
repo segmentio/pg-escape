@@ -102,7 +102,7 @@ exports.literal = function(val){
 
 function validIdent(id) {
   if (reserved[id]) return false;
-  return /^[a-z_][a-z0-9_$]*$/i.test(id);
+  return /^[a-z_][a-z0-9_$]*$/.test(id);
 }
 
 /**
