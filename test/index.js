@@ -95,5 +95,10 @@ describe('escape.literal(val)', function(){
   it('should escape backslashes', function(){
     escape.literal('\\whoop\\').should.equal("E'\\\\whoop\\\\'");
   })
+
+  it('should accept numbers', function(){
+    escape.literal(9001).should.equal('9001');
+    escape.literal(5.50).should.equal('5.5');
+  })
 })
 
