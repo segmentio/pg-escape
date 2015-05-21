@@ -118,6 +118,7 @@ exports.ident = function(val){
 
 exports.literal = function(val){
   if (null == val) return 'NULL';
+  if (Number.isFinite(val)) return val.toString();
   if (Array.isArray(val)) {
     var vals = val.map(exports.literal)
     return "(" + vals.join(", ") + ")"
