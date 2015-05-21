@@ -32,6 +32,10 @@ INSERT INTO books VALUES('O''Reilly')
 
   Format as a simple string.
 
+### escape.dollarQuotedString(val)
+
+  Format as a [dollar quoted string](http://www.postgresql.org/docs/8.3/interactive/sql-syntax-lexical.html#SQL-SYNTAX-DOLLAR-QUOTING)
+
 ### escape.ident(val)
 
   Format as an identifier.
@@ -43,6 +47,7 @@ INSERT INTO books VALUES('O''Reilly')
 ## Formats
 
 - `%s` formats the argument value as a simple string. A null value is treated as an empty string.
+- `%Q` formats the argument value as a [dollar quoted string](http://www.postgresql.org/docs/8.3/interactive/sql-syntax-lexical.html#SQL-SYNTAX-DOLLAR-QUOTING). A null value is treated as an empty string.
 - `%I` treats the argument value as an SQL identifier, double-quoting it if necessary. It is an error for the value to be null.
 - `%L` quotes the argument value as an SQL literal. A null value is displayed as the string NULL, without quotes.
 - `%%` In addition to the format specifiers described above, the special sequence %% may be used to output a literal % character.
