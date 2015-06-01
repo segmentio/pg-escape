@@ -68,6 +68,7 @@ describe('escape.dollarQuotedString(val)', function() {
 describe('escape.ident(val)', function(){
   it('should quote when necessary', function(){
     escape.ident('foo').should.equal('foo');
+    escape.ident('Foo').should.equal('"Foo"');
     escape.ident('_foo').should.equal('_foo');
     escape.ident('_foo_bar$baz').should.equal('_foo_bar$baz');
     escape.ident('test.some.stuff').should.equal('"test.some.stuff"');
