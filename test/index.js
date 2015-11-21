@@ -72,6 +72,7 @@ describe('escape.ident(val)', function(){
     escape.ident('_foo_bar$baz').should.equal('_foo_bar$baz');
     escape.ident('test.some.stuff').should.equal('"test.some.stuff"');
     escape.ident('test."some".stuff').should.equal('"test.""some"".stuff"');
+    escape.ident('someStuff').should.equal('"someStuff"');
   })
 
   it('should quote reserved words', function(){
