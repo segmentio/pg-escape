@@ -63,6 +63,17 @@ describe('escape.dollarQuotedString(val)', function() {
     escape.dollarQuotedString(15).should.match(/\$[a-z]{1}\$15\$[a-z]\$/);
     escape.dollarQuotedString('something').should.match(/\$[a-z]{1}\$something\$[a-z]\$/);
   })
+
+  it('should handle dollar quotes in the string being escaped without resorting to luck', function(){
+    var sql = 'SELECT $a$test$a$';
+    // The only occurrences of $a$ in the string should be from the string itself.
+    // The repeated test from the for loop is to catch $a$ randomly being chosen as the tag.
+    for(var i=0;i<1000;i++) {
+      var escapedSql = escape.dollarQuotedString(sql);
+      var count = escapedSql.match(/\$a\$/g).length;
+      assert(count === 2);
+    }
+  });
 })
 
 describe('escape.ident(val)', function(){
