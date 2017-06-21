@@ -63,8 +63,16 @@ exports.string = function(val){
  *  Dollar-Quoted String Constants
  */
 
-var randomTags = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'g', 'j', 'k',
-  'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't'];
+var randomTags = [
+  // Upper case alpha sans vowels
+  'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M',
+  'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Z',
+  // Lower case alpha sans vowels
+  'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm',
+  'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z',
+  // Numeric two through nine
+  '2', '3', '4', '5', '6', '7', '8', '9',
+];
 
 /**
  * produces a random number from a given range

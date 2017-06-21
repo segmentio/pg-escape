@@ -67,7 +67,7 @@ describe('escape.dollarQuotedString(val)', function() {
 
 describe('escape.dollarQuotedString(val)', function() {
   it('should handle quoting strings with dollar quotes in them', function(){
-    escape.dollarQuotedString('$$').should.match(/\$[a-z]+\$\$\$\$[a-z]+\$/);
+    escape.dollarQuotedString('$$').should.match(/\$[a-zA-Z0-9]+\$\$\$\$[a-zA-Z0-9]+\$/);
   })
 
   it('should handle dollar quotes in the string being escaped without resorting to luck', function(){
