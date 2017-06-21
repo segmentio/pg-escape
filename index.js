@@ -84,6 +84,9 @@ function random(start, end) {
  * Format as dollar quoted string.
  * see: http://www.postgresql.org/docs/8.3/interactive/sql-syntax-lexical.html#SQL-SYNTAX-DOLLAR-QUOTING
  *
+ * Initially tries to use a tagless $$ as the quote wrapper. If it appears in the string to be quoted, then
+ * successively longer random tags are chosen until one is found that is not contained within the string.
+ *
  * @param {Mixed} val
  * @return {String}
  * @api public
@@ -91,8 +94,20 @@ function random(start, end) {
 
 exports.dollarQuotedString = function(val) {
   if (val === undefined || val === null || val === '') return '';
-  var randomTag = '$'+ randomTags[ random(0, randomTags.length) ] +'$';
-  return randomTag + val + randomTag;
+  // Ensure val is coerced to a string
+  val = '' + val;
+  // Start with an empty tag: $$
+  var tag = '';
+  while (true) {
+    var dollarQuote = '$'+ tag + '$';
+    // Check if val contains our selected dollar quote tag
+    if (val.indexOf(dollarQuote) < 0) {
+      // Not contained so dollarQuote is safe to use
+      return dollarQuote + val + dollarQuote;
+    }
+    // Tag was contained within val so add random character to it
+    tag += randomTags[ random(0, randomTags.length) ];
+  }
 }
 
 /**

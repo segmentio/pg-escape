@@ -42,7 +42,7 @@ describe('escape(fmt, ...)', function(){
   describe('%Q', function(){
     it('should format as a dollar quoted string', function(){
       escape('%Q', "Tobi's")
-        .should.match(/\$[a-z]{1}\$Tobi's\$[a-z]\$/);
+        .should.match("$$Tobi's$$");
     })
   })
 })
@@ -59,9 +59,15 @@ describe('escape.string(val)', function(){
 describe('escape.dollarQuotedString(val)', function() {
   it('should coerce to a dollar quoted string', function(){
     escape.dollarQuotedString().should.equal('');
-    escape.dollarQuotedString(0).should.match(/\$[a-z]{1}\$0\$[a-z]\$/);
-    escape.dollarQuotedString(15).should.match(/\$[a-z]{1}\$15\$[a-z]\$/);
-    escape.dollarQuotedString('something').should.match(/\$[a-z]{1}\$something\$[a-z]\$/);
+    escape.dollarQuotedString(0).should.equal('$$0$$');
+    escape.dollarQuotedString(15).should.equal('$$15$$');
+    escape.dollarQuotedString('something').should.equal('$$something$$');
+  })
+})
+
+describe('escape.dollarQuotedString(val)', function() {
+  it('should handle quoting strings with dollar quotes in them', function(){
+    escape.dollarQuotedString('$$').should.match(/\$[a-z]+\$\$\$\$[a-z]+\$/);
   })
 
   it('should handle dollar quotes in the string being escaped without resorting to luck', function(){
