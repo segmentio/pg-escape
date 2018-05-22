@@ -116,6 +116,7 @@ describe('escape.literal(val)', function(){
     escape.literal(5).should.equal("5");
     escape.literal(5.5).should.equal("5.5");
     escape.literal(-20).should.equal("-20");
+    escape.literal(1234512345123451234512345).should.equal("1.2345123451234512e+24");
   })
 
   it('should return a boolean for booleans', function(){
