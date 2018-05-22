@@ -111,5 +111,21 @@ describe('escape.literal(val)', function(){
   it('should escape backslashes', function(){
     escape.literal('\\whoop\\').should.equal("E'\\\\whoop\\\\'");
   })
+
+  it('should return a number for numbers', function(){
+    escape.literal(5).should.equal("5");
+    escape.literal(5.5).should.equal("5.5");
+    escape.literal(-20).should.equal("-20");
+  })
+
+  it('should return a boolean for booleans', function(){
+    escape.literal(true).should.equal("TRUE");
+    escape.literal(false).should.equal("FALSE");
+  })
+
+  it('should return a quoted object for objects', function(){
+    escape.literal({test:'testing 123'}).should.equal("'{\"test\":\"testing 123\"}'");
+    escape.literal({test:'testing \' \\ 123', z: 5}).should.equal("E'{\"test\":\"testing '' \\\\\\\\ 123\",\"z\":5}'");
+  })
 })
 
