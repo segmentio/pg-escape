@@ -118,9 +118,14 @@ exports.ident = function(val){
 
 exports.literal = function(val){
   if (null == val) return 'NULL';
+  if (typeof val === 'number') return val.toString();
+  if (typeof val === 'boolean') return val ? 'TRUE' : 'FALSE';
   if (Array.isArray(val)) {
     var vals = val.map(exports.literal)
     return "(" + vals.join(", ") + ")"
+  }
+  if (typeof val === 'object') {
+    return exports.literal(JSON.stringify(val));
   }
   var backslash = ~val.indexOf('\\');
   var prefix = backslash ? 'E' : '';
