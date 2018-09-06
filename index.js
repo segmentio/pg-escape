@@ -56,6 +56,9 @@ function format(fmt) {
  */
 
 exports.string = function(val){
+	if (typeof val === 'object') {
+		return JSON.stringify(val)
+	}
   return null == val ? '' : String(val);
 };
 

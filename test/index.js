@@ -52,6 +52,7 @@ describe('escape.string(val)', function(){
     escape.string().should.equal('');
     escape.string(0).should.equal('0');
     escape.string(15).should.equal('15');
+    escape.string({"hello":"bye"}).should.equal('{"hello":"bye"}')
     escape.string('something').should.equal('something');
   })
 })
