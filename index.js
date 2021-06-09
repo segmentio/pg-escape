@@ -105,7 +105,7 @@ exports.dollarQuotedString = function(val) {
 
 exports.ident = function(val){
   assert(null != val, 'identifier required');
-  return validIdent(val) ? val : quoteIdent(val);
+  return reserved[val] || /^[a-z_][a-z0-9_$]*$/.test(val) ? quoteIdent(val) : val;
 };
 
 /**
@@ -128,19 +128,6 @@ exports.literal = function(val){
   val = val.replace(/\\/g, '\\\\');
   return prefix + "'" + val + "'";
 };
-
-/**
- * Check if `id` is a valid unquoted identifier.
- *
- * @param {String} id
- * @return {Boolean}
- * @api private
- */
-
-function validIdent(id) {
-  if (reserved[id]) return false;
-  return /^[a-z_][a-z0-9_$]*$/i.test(id);
-}
 
 /**
  * Quote identifier.
