@@ -10,11 +10,10 @@ var fs = require('fs');
  * Reserved word map.
  */
 
-var txt = fs.readFileSync(__dirname + '/reserved.txt', 'utf8');
-var reserved = txt.split('\n').reduce(function(map, word){
-  map[word.toLowerCase()] = true;
-  return map;
-}, {});
+var reserved = require('./reserved.json').reduce(function (map, word) {
+    map[word.toLowerCase()] = true
+    return map
+}, {})
 
 /**
  * Expose `format()`.
